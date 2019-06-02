@@ -11,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <div class="card p-1">
+      <div class="card p-3">
         <img class="card-image-top img-thumbnail" src="{{photoUrl || '../../../../../assets/user.png'}}" alt="{{user.knownAs}}">
         <div class="cardbody">
           <div>
@@ -24,11 +24,11 @@
           </div>
           <div>
             <strong>Last Active:</strong>
-            <p>{{user.lastActive}}</p>
+            <p>{{user.lastActive | timeAgo}}</p>
           </div>
           <div>
             <strong>Member Since:</strong>
-            <p>{{user.created}}</p>
+            <p>{{user.created | date}}</p>
           </div>
         </div>
         <div class="card-footer">
