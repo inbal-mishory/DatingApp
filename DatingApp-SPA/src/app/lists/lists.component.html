@@ -5,23 +5,29 @@
 <div class="container">
   <div class="row">
     <div class="btn-group">
+      <button type="button" name="orderBy" class="btn btn-primary mr-1" [(ngModel)]="likesParam" 
+        (click)="loadUsers()" btnRadio="Likers">Members who like me</button>
       <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="likesParam" 
-        (click)="loadUsers()" btnRadio="Likers">Last Active</button>
-      <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="likesParam" 
-        (click)="loadUsers()" btnRadio="Likees">Newest Members</button>
+        (click)="loadUsers()" btnRadio="Likees">Members who I've liked</button>
     </div>
   </div>
 
   <br/>
 
-  <div class="row">
+  <div class="row" *ngIf="pagination.totalItems > 0">
     <div *ngFor="let user of users" class="col-lg-4 col-md-5 col-sm-6">
       <app-member-card [user]="user"></app-member-card>
     </div>
   </div>
+  <div class="row" *ngIf="pagination.totalItems == 0 && likesParam == 'Likees'">
+    <div>You haven't liked anyone yet</div>
+  </div>
+  <div class="row" *ngIf="pagination.totalItems == 0 && likesParam == 'Likers'">
+    <div>No one has liked you yet</div>
+  </div>
 </div>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" *ngIf="pagination.totalItems > pagination.itemsPerPage">
   <pagination [boundaryLinks]="true" 
               [totalItems]="pagination.totalItems"
               [itemsPerPage]="pagination.itemsPerPage"
