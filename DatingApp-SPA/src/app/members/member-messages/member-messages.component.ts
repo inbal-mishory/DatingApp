@@ -13,7 +13,7 @@ import { tap } from 'rxjs/operators';
 })
 export class MemberMessagesComponent implements OnInit {
   @Input() recipientId: number;
-  messages: Message[];
+  messages: Message[] = [];
   newMessage: any = {};
 
   constructor(private userService: UserService, private alertify: AlertifyService, private authService: AuthService) { }
@@ -44,7 +44,12 @@ export class MemberMessagesComponent implements OnInit {
   sendMessage() {
     this.newMessage.recipientId = this.recipientId;
     this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe((message: Message) => {
-      this.messages.unshift(message);
+      if (this.messages.length > 0) {
+        this.messages.unshift(message);
+      } else {
+        this.messages.push(message);
+      }
+      this.alertify.success('Message sent');
       this.newMessage.content = '';
     }, error => {
       this.alertify.error(error);
