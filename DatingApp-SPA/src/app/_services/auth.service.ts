@@ -14,7 +14,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   currentUser: User;
-  photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+  photoUrl = new BehaviorSubject<string>('../../assets/user-male.png');
   currentPhotoUrl = this.photoUrl.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -51,12 +51,14 @@ export class AuthService {
   roleMatch(allowedRoles): boolean {
     let isMatch = false;
     const userRoles = this.decodedToken.role as Array<string>;
-    allowedRoles.forEach(element => {
-      if (userRoles.includes(element)) {
-        isMatch = true;
-        return;
-      }
-    });
+    if (userRoles !== undefined) {
+      allowedRoles.forEach(element => {
+        if (userRoles.includes(element)) {
+          isMatch = true;
+          return;
+        }
+      });
+    }
     return isMatch;
   }
 

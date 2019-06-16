@@ -9,9 +9,9 @@ namespace DatingApp.API.models
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public Boolean IsMain { get; set; }
+        public Boolean IsApproved { get; set; }
         public string PublicId { get; set; }
         public User User { get; set; }
-        
         public int UserId { get; set; }
     }
 }

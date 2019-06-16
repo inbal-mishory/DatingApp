@@ -16,6 +16,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent},
+    { path: '', component: HomeComponent},
     {
         path: '',
         runGuardsAndResolvers: 'always',
@@ -27,8 +28,8 @@ export const appRoutes: Routes = [
                     canDeactivate: [PreventUnsavedChanges]},
             { path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
             { path: 'lists', component: ListsComponent, resolve: {users: ListsResolver}},
-            { path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin', 'Moderator']}}
+            { path: 'admin', component: AdminPanelComponent, data: {roles: ['Moderator', 'Admin']}}
         ]
     },
-    { path: '**', redirectTo: '', pathMatch: 'full'}
+    { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
